@@ -1,9 +1,28 @@
 package main
 
-import "fmt"
-import "rsc.io/quote"
+import (
+	"example/hello/greetings"
+	"fmt"
+	"log"
+	"math/rand"
+)
 
 func main() {
-	fmt.Println("Hello, World!")
-	fmt.Println(quote.Opt())
+	// Set properties of the predefined Logger, including
+	// the log entry prefix and a flag to disable printing
+	// the time, source file, and line number.
+	log.SetPrefix("greetings: ")
+	log.SetFlags(0)
+	names := []string{"Arko", "Budi", "Cahyo"}
+	// Request a greeting message.
+	message, err := greetings.Hello(names[rand.Intn(len(names))])
+	// If an error was returned, print it to the console and
+	// exit the program.
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// If no error was returned, print the returned message
+	// to the console.
+	fmt.Println(message)
 }
